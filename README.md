@@ -2,6 +2,12 @@
 
 ### Tokenomics Model Description
 
+### Key Terms
+- **DA Provider**: Example - DA1
+- **DA Token**: Example - DAtoken
+- **LasticDA**: Reward Token for the specific protocol
+- **Proof Token**: DAtokenProof
+
 #### Background
 - **Data Availability Competition**: With data availability (DA) becoming highly affordable and accessible, DA providers are in fierce competition to attract Layer 2 solutions to use their platforms.
 - **Current Incentive Mechanisms**: DA providers currently rely on business development teams to incentivize Layer 2 solutions with tokens, a process that is lengthy and expensive.
@@ -17,29 +23,27 @@ This tokenomics model is designed to function from three key perspectives, each 
 
 2. **DA Providers**
    - **Streamlined Incentives**: Instead of manually negotiating with Layer 2 solutions, DA providers can leverage the automated tokenomics model.
-   - **Deposits and Proofs**: DA providers facilitate the process by allowing deposits and managing the generation of `DAtokenProofs`.
-   - **Foundation Contributions**: The DA foundation can contribute to the pool by depositing its currency, which in turn burns `DAtokenProofs`, maintaining the system's balance.
+   - **Foundation Contributions**: The DA foundation can contribute to the pool by depositing its currency (`DAtokens`), which in turn burns `DAtokenProofs`, maintaining the system's balance.
 
 3. **Layer 2 Solutions**
    - **Engagement**: Layer 2 solutions connect to the Lastic platform, triggering the minting of `DAtokenProofs` based on their submission duration.
    - **Spam Prevention**: To prevent abuse, the creation of `DAtokenProofs` is based on the length of the Layer 2's engagement, with longer commitments yielding more tokens.
    - **Rewards**: The model ensures that genuine, long-term Layer 2 engagements are rewarded proportionally, encouraging sustainable and meaningful participation.
 
-#### Incentive Mechanics
-- **User Deposits and Rewards**: Users deposit `DAtoken` into the DA pool and receive `LasticDA` tokens, minted in proportion to the pool’s value and the number of `DAtokenProofs` generated.
-- **Foundation Deposits**: The DA foundation's deposits burn `DAtokenProofs`, ensuring a controlled supply and supporting the overall token economy.
-- **Layer 2 Contributions**: Layer 2 solutions’ contributions are incentivized through a tiered system, where longer participation periods result in higher rewards of `DAtokenProofs`.
+#### Dependencies of token generation
+- **DAtokenProofs**: 
+    - Note `DAtokenProof` token has a 1:1 exchange rate with the `DAtoken`, `DAtokenProof` is a ficticious token which we use to track how much money has been allocated to the Layer 2s. Every time `DAtokenProof` is minted some money proportional to the minting should be allocated from the `DAtoken` pool to the L2.
+    - Layer 2 solutions’ contributions are incentivized either through a tiered system or a time curve, where longer participation periods result in higher rewards of `DAtokenProofs`.  
+    - Minting of the `DAtokenProofs` should be also dependent on how much is the user deposit to foundation deposit ratio to Layer2 minting the DAtokenProofs ratio. For example: If there are a lot of Layer2's, but the deposits of `DAtoken` in the pool is small, each individual L2 should get proportionally less rewards. Likewise if you have lot's of user depositing, but no foundations depositing the tokens, the payouts for the L2s should be proportionally small, because there are already a lot of users that are expecting the rewards, but not a lot of rewards to go around. However early users that deposited into the pool should still get rewards from the new users that are coming into the pool. When the DA foundation's comes along and deposits `DAtokens` that action burns `DAtokenProofs`.
+    - _These are only assumption - Fix if there are some issues._
+- **LasticDA**: Users deposit `DAtoken` into the DA pool and receive `LasticDA` tokens, minted in proportion to how long they were staking, how many `DAtokens` are already in the pool and the number of `DAtokenProofs` generated. _These are only assumption - Fix if there are some issues._
 
 #### Combining Multiple DA Providers
-- **Unified Token**: The `LasticDA` token aggregates the value of `LasticDA` tokens from various DA providers, creating a cohesive and scalable ecosystem.
+- **Unified Token**: The `Lastic` token aggregates the value of `LasticDA` tokens from various DA providers, creating a cohesive and scalable ecosystem. The exact formula is yet unknown, but maybe something like:
+
+$$ T_{Lastic} = C_1 * T_{LasticDA1} + ... + C_N * T_{LasticDAN} $$
 
 This tokenomics model aims to automate and optimize the onboarding process for Layer 2 solutions, incentivize user participation, and streamline the interaction between DA providers, foundations, and Layer 2 solutions, ultimately fostering a more efficient and competitive DA marketplace.
-
-### Key Terms
-- **DA Provider**: Example - DA1
-- **DA Token**: Example - DAtoken
-- **Reward Token**: LasticDA
-- **Proof Token**: DAtokenProof
 
 ### User Flow
 
