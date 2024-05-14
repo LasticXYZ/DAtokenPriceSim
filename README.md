@@ -1,5 +1,16 @@
 # Tokenomics Model
 
+## Get started
+To get started create a virtual python environment with anaconda or .venv, then run command:
+```sh
+pip install -r requirements.txt
+```
+
+if you install new dependencies, remember to save them in requirements.txt:
+```sh
+pip freeze > requirements.txt
+```
+
 ### Tokenomics Model Description
 
 ### Key Terms
