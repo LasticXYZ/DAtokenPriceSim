@@ -47,43 +47,50 @@ This tokenomics model aims to automate and optimize the onboarding process for L
 
 ### User Flow
 
-1. **Deposit Tokens**
+1. **Deposit && Lock of Tokens**
     - Users deposit `DAtoken` into the DA1 pool.
-2. **Lock Tokens**
     - The deposited `DAtoken` is locked in the pool.
-3. **Mint Reward Tokens**
+2. **Mint Reward Tokens**
     - Users receive `LasticDA` in exchange for locking their tokens.
     - `LasticDA` is minted when `DAtokenProofs` are generated.
     - The amount of `LasticDA` minted depends on:
         - The total value in the pool.
         - The quantity of `DAtokenProofs` generated.
+3. **Unlock `DAtokens` with burning `LasticDA`**
+    - Over time when the user will get the `LasticDA` tokens they will get rewarded 
+
+> The exact mechanics of how exactly the `LasticDA` tokens would be minted and how many of them would have to be burned in exchange for the amount of how many `DAtokens` would be unlocked is still unkown.
 
 ```mermaid
 flowchart TD
-    A[User] -->|Deposits DAtoken| C[DA Token Pool]
-    C -->|Tokens Locked| C
-    C -->|Mints LasticDA| A
+    A[User] -->|Locks DAtoken| C[DA Token Pool]
+    C -->|Rewarded with LasticDA| A
 ```
 
-### Token Unlock Flow
+```mermaid
+flowchart TD
+    A[User] -->|Burn LasticDA| C
+    C[Pool] -->|Unlocks DAtoken| A
+```
 
-1. **Burn Reward Tokens**
-    - Users burn `LasticDA`.
-2. **Unlock Tokens**
-    - Users receive their original `DAtoken` from the pool.
+4. **Creation of the Lastic token**
+    - Mechanism of burning the LasticDA token can mint people the Lastic token, and vice versa
+    - A cleaver mechanism has to be devised for 
+
+> Note: these mechanics have to yet to be properly defined
 
 ```mermaid
 flowchart TD
-    A[User] -->|Burns LasticDA| C[DA Token Pool]
-    C -->|Unlocks DAtoken| A
+    A[User] -->|Burns LasticDA| C
+    C[Pool] -->|Mints Lastic Token| A
 ```
 
 ### DA Foundation Flow
 
 1. **Deposit Currency**
-    - The DA foundation deposits its currency into the pool.
+    - The DA foundation deposits its currency into the pool in exchange for burning the `DAtokenProofs`.
 2. **Burn Proof Tokens**
-    - `DAtokenProofs` are burned when the foundation deposits currency.
+    - `DAtokenProofs` are burned when the foundation deposits it's currency.
 
 ```mermaid
 flowchart TD
@@ -95,10 +102,13 @@ flowchart TD
 
 1. **Mint Proof Tokens**
     - `DAtokenProofs` are minted based on the duration of Layer 2 submissions to the DA provider.
+    - and based on how much tokens are in the pool, what are the ratios between user deposits and 
 2. **Spam Prevention**
     - To prevent spam, the minting of `DAtokenProofs` considers the submission duration:
         - Short-term submissions yield fewer tokens.
         - Longer submissions yield more tokens (e.g., 2-4 months: 10% of `DAtoken`).
+
+> Note: the following represents only an example.
 
 ```mermaid
 flowchart TD
@@ -117,13 +127,13 @@ flowchart TD
 
 ```mermaid
 flowchart TD
-    A[User] -->|Locks DAtoken| C1[DA Token Pool]
+    A[User] -->|Locks DAtoken| C[DA Token Pool]
     C1 -->|LasticDA Minted| A
-    D[Foundation] -->|Deposits Currency| C1
+    D[Foundation] -->|Deposits DAtokens| C
     E[Layer 2] -.Triggers Minting .-> F[DAtokenProofs]
     D -.Burns .-> F
 
-    subgraph C1
+    subgraph C1[Pool for DA]
         C[Pool]
         F
     end
@@ -133,6 +143,15 @@ flowchart TD
 
 The `LasticDA` token represents the aggregate value of `LasticDA` tokens from various DA providers.
 
+```mermaid
+flowchart TD
+    A[User] -->|Locks DAtoken| C1[DA Token Pool]
+    C1 -->|LasticDA Minted| A
+    D[Foundation] -->|Deposits Currency| C1
+    E[Layer 2] -.Triggers Minting .-> F[DAtokenProofs]
+    D -.Burns .-> F
+```
+
 ## Modeling Dynamics with Python
 
 To model the value of the `LasticDA` token over time:
@@ -140,5 +159,3 @@ To model the value of the `LasticDA` token over time:
 1. **Linear Growth of DAtoken**: The value of `DAtoken` rises linearly.
 2. **User Inflows**: User deposits cause small deviations, appearing as noise that never falls below zero.
 3. **Foundation Influence**: The DA foundation's deposits cause step-like increases in the `DAtoken` pool value.
-
-```
