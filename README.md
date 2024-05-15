@@ -159,4 +159,5 @@ The `LasticDA` token represents the aggregate value of `LasticDA` tokens from va
 ## To be completed
 
  - [ ] Model the exact curve mechanics of minting the `DALastic` token
- - [ ] Model the exact curve mechanics of minting the `DALastic` token
+ - [ ] Model the exact mechanics of minting the `DAtokenproof`
+ - [ ] Model multiple people coming in mintining at different durations
