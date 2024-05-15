@@ -14,10 +14,10 @@ pip freeze > requirements.txt
 ### Tokenomics Model Description
 
 ### Key Terms
-- **DA Provider**: Example - DA1
-- **DA Token**: Example - DAtoken
-- **LasticDA**: Reward Token for the specific protocol
-- **Proof Token**: DAtokenProof
+- **DA Provider**: An arbitrary data availabity provider for example Celestia
+- **DAToken**: This is the token of the Data Availability Provider (in the case of Celestia think TIA)
+- **LasticDA**: Reward Token for the specific protocol, reward that is minted over time in exchange for people minting the TIA token
+- **DAtokenProof**: Representation as a token of how many TIA tokens have been promised to the Layer2s, they have a 1:1 conversion with TIA tokens
 
 #### Background
 - **Data Availability Competition**: With data availability (DA) becoming highly affordable and accessible, DA providers are in fierce competition to attract Layer 2 solutions to use their platforms.
@@ -154,19 +154,9 @@ flowchart TD
 
 The `LasticDA` token represents the aggregate value of `LasticDA` tokens from various DA providers.
 
-```mermaid
-flowchart TD
-    A[User] -->|Locks DAtoken| C1[DA Token Pool]
-    C1 -->|LasticDA Minted| A
-    D[Foundation] -->|Deposits Currency| C1
-    E[Layer 2] -.Triggers Minting .-> F[DAtokenProofs]
-    D -.Burns .-> F
-```
 
-## Modeling Dynamics with Python
 
-To model the value of the `LasticDA` token over time:
+## To be completed
 
-1. **Linear Growth of DAtoken**: The value of `DAtoken` rises linearly.
-2. **User Inflows**: User deposits cause small deviations, appearing as noise that never falls below zero.
-3. **Foundation Influence**: The DA foundation's deposits cause step-like increases in the `DAtoken` pool value.
+ - [ ] Model the exact curve mechanics of minting the `DALastic` token
+ - [ ] Model the exact curve mechanics of minting the `DALastic` token
